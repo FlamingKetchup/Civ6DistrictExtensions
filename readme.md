@@ -1,0 +1,1 @@
+Mod for Civilization 6. Replaces Specialty District buildings with corresponding Extensions, Districts that must be placed adjacent to the Specialty District, or to a previous Extension for that District.
