@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Mod id="7a1be4a6-32d7-4b59-a2b0-f6898527a524" version="1">
+  <Properties>
+    <Name>District Extensions</Name>
+    <Description>Replaces specialty district buildings with "Extensions," districts that function similarly to the replaced building, but must be placed next to the specialty district or a previous extension</Description>
+    <Authors>FlamingKetchup</Authors>
+    <CompatibleVersions>1.2,2.0</CompatibleVersions>
+  </Properties>
+  <InGameActions>
+    <UpdateDatabase id="RemoveCampusBuildingsAddCampusExtensions">
+      <Properties>
+        <LoadOrder>0</LoadOrder>
+      </Properties>
+      <File>CampusExtensions/CamExtCore.sql</File>
+    </UpdateDatabase>
+    <UpdateIcons id="AddCampusExtensionIcons">
+      <Properties>
+        <LoadOrder>0</LoadOrder>
+      </Properties>
+      <File>CampusExtensions/CamExtIcon.sql</File>
+    </UpdateIcons>
+  </InGameActions>
+  <Files>
+    <File>CampusExtensions/CamExtCore.sql</File>
+    <File>CampusExtensions/CamExtIcon.sql</File>
+  </Files>
+</Mod>
