@@ -35,6 +35,8 @@ function HasAdjacentDistrict(x, y, districtIndex)
   return false
 end
 
+-- Test if plot is a valid place for an extension
+-- Returns true if it is, or the district isn't an extension
 function validExtensionPlot(plot, districtIndex)
   local x = plot:GetX()
   local y = plot:GetY()
@@ -259,7 +261,7 @@ function ConfirmPlaceDistrict( pInputStruct:table)
 
 	local pSelectedCity = UI.GetHeadSelectedCity();
   local pDistrictInfo = GameInfo.Districts[districtHash];
-	if (pSelectedCity ~= nil and validExtensionPlot(kPlot, pDistrictInfo.Index)) then
+	if (pSelectedCity ~= nil) then
 		local bCanStart;
 		local tResults;
 		if (bIsPurchase) then
@@ -267,7 +269,8 @@ function ConfirmPlaceDistrict( pInputStruct:table)
 		else
 			bCanStart, tResults = CityManager.CanStartOperation( pSelectedCity, CityOperationTypes.BUILD, tParameters, true);
 		end
-		if pDistrictInfo ~= nil and bCanStart then
+    -- Test if plot is valid for extensions
+		if pDistrictInfo ~= nil and bCanStart and validExtensionPlot(kPlot, pDistrictInfo.Index) then
 
 			local sConfirmText	:string = Locale.Lookup("LOC_DISTRICT_ZONE_CONFIRM_DISTRICT_POPUP", pDistrictInfo.Name);
 
@@ -352,9 +355,8 @@ function RealizePlotArtForDistrictPlacement()
   				for plotIndex, districtViewInfo in pairs(kAdjacentPlotBonuses) do
   					m_hexesDistrictPlacement[plotIndex] = districtViewInfo;
   				end
+				  table.insert( kNonShadowHexes, plotId );
         end
-
-				table.insert( kNonShadowHexes, plotId );
 			end
 		end
 
@@ -369,8 +371,9 @@ function RealizePlotArtForDistrictPlacement()
 				-- Only highlight certain plots (usually if there is a bonus to be gained).
 				local kPlot		:table			= Map.GetPlotByIndex(plotId);
 
-				if kPlot:CanHaveDistrict(district.Index, pSelectedCity:GetOwner(), pSelectedCity:GetID()) then
-          print("Purchase:" .. kPlot:GetX() .. ", " .. kPlot:GetY())
+        print("Purchasable:" .. kPlot:GetX() .. ", " .. kPlot:GetY())
+				if kPlot:CanHaveDistrict(district.Index, pSelectedCity:GetOwner(), pSelectedCity:GetID()) and validExtensionPlot(kPlot, district.Index) then
+          print("Valid purchasable plot for district")
 					local plotInfo	:table			= GetViewPlotInfo( kPlot, m_hexesDistrictPlacement );
 					plotInfo.hexArtdef				= "Placement_Purchase";
 					plotInfo.selectable				= true;

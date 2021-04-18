@@ -19,12 +19,6 @@
       </Properties>
       <File>CampusExtensions/CamExtIcon.sql</File>
     </UpdateIcons>
-<!--    <AddGameplayScripts id="CampusExtensionPlaceDummyFeatures">
-      <Properties>
-        <LoadOrder>0</LoadOrder>
-      </Properties>
-      <File>CampusExtensions/CamExtPlaceDummyFeature.lua</File>
-    </AddGameplayScripts> -->
     <ImportFiles id="ImportStrategicView_MapPlacement">
       <Properties>
         <LoadOrder>0</LoadOrder>
@@ -35,7 +29,6 @@
   <Files>
     <File>CampusExtensions/CamExtCore.sql</File>
     <File>CampusExtensions/CamExtIcon.sql</File>
-<!--    <File>CampusExtensions/CamExtPlaceDummyFeature.lua</File> -->
     <File>UI/StrategicView_MapPlacement.lua</File>
   </Files>
 </Mod>
