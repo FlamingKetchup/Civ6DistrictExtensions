@@ -21,12 +21,25 @@ local m_Districts : number = UILens.CreateLensLayerHash("Districts");
 
 local bWasCancelled:boolean = true;
 
+-- Extension and base district indices
+local iCampus = GameInfo.Districts['DISTRICT_CAMPUS'].Index
+local iLibrary = GameInfo.Districts['DISTRICT_LIBRARY'].Index
+local iUniversity = GameInfo.Districts['DISTRICT_UNIVERSITY'].Index
+local iMadrasa = GameInfo.Districts['DISTRICT_MADRASA'].Index
+local iResearchLab = GameInfo.Districts['DISTRICT_RESEARCH_LAB'].Index
+
+print("Library Index: " .. iLibrary)
+print("University Index: " .. iUniversity)
+print("Madrasa Index: " .. iMadrasa)
+print("Research Lab Index: " .. iResearchLab)
+
 -- Mod functions
 function HasAdjacentDistrict(x, y, districtIndex)
+  print("District Index: " .. districtIndex)
   for _,direction in pairs(DirectionTypes) do
     if direction ~= DirectionTypes.NO_DIRECTION and direction ~= DirectionTypes.NUM_DIRECTION_TYPES then
       local adjacentPlot	:table = Map.GetAdjacentPlot(x, y, direction)
-      print(adjacentPlot:GetX() .. ", " .. adjacentPlot:GetY() .. ": " .. adjacentPlot:GetDistrictType())
+      print(adjacentPlot:GetX() .. ", " .. adjacentPlot:GetY() .. ": District: " .. adjacentPlot:GetDistrictType().. "Owner: " .. adjacentPlot:GetOwner())
       if adjacentPlot:GetDistrictType() == districtIndex then
         return true
       end
@@ -42,33 +55,20 @@ function validExtensionPlot(plot, districtIndex)
   local y = plot:GetY()
   print(x .. ", " .. y)
 
-  local iCampus = GameInfo.Districts['DISTRICT_CAMPUS'].Index
-  local iLibrary = GameInfo.Districts['DISTRICT_LIBRARY'].Index
-  local iUniversity = GameInfo.Districts['DISTRICT_UNIVERSITY'].Index
-  local iMadrasa = GameInfo.Districts['DISTRICT_MADRASA'].Index
-  local iResearchLab = GameInfo.Districts['DISTRICT_RESEARCH_LAB'].Index
 
-  print("Library Index: " .. iLibrary)
-  print("University Index: " .. iUniversity)
-  print("Madrasa Index: " .. iMadrasa)
-  print("Research Lab Index: " .. iResearchLab)
-  print("District Index: " .. districtIndex)
 
   local CampusAdjacent = HasAdjacentDistrict(x, y, iCampus)
   local LibraryAdjacent = HasAdjacentDistrict(x, y, iLibrary)
   local UniversityAdjacent = HasAdjacentDistrict(x, y, iUniversity)
   local MadrasaAdjacent = HasAdjacentDistrict(x, y, iMadrasa)
-  print("Campus Adjacent: " .. tostring(CampusAdjacent))
-  print("Library Adjacent: " .. tostring(LibraryAdjacent))
-  print("University Adjacent: " .. tostring(UniversityAdjacent))
-  print("Madrasa Adjacent: " .. tostring(MadrasaAdjacent))
+  print("Has adjacent: Campus: " .. tostring(CampusAdjacent) .. "Library: " .. tostring(LibraryAdjacent) ..
+  "University: " .. tostring(UniversityAdjacent) .. "Madrasa: " .. tostring(MadrasaAdjacent))
 
   local invalidLibrary = districtIndex == iLibrary and not CampusAdjacent
   local invalidUniversity = (districtIndex == iUniversity or districtIndex == iMadrasa) and not (CampusAdjacent or LibraryAdjacent)
   local invalidResearchLab = districtIndex == hResearchLab and not (CampusAdjacent or LibraryAdjacent or UniversityAdjacent or MadrasaAdjacent)
-  print("Is an invalid Library: " .. tostring(invalidLibrary))
-  print("Is an invalid University: " .. tostring(invalidUniversity))
-  print("Is an invalid ResearchLab: " .. tostring(invalidResearchLab))
+  print("Is an invalid: Library: " .. tostring(invalidLibrary) .. "University: " .. tostring(invalidUniversity)
+  .. "Research Lab: " .. tostring(invalidResearchLab))
   return not(invalidLibrary or invalidUniversity or invalidResearchLab)
 end
 

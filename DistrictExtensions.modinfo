@@ -25,8 +25,14 @@
       </Properties>
       <File>UI/StrategicView_MapPlacement.lua</File>
     </ImportFiles>
+    <UpdateArt id="DistrictExtensionsUpdateArt">
+      <File>DistrictExtensions.dep</File>
+    </UpdateArt>
   </InGameActions>
   <Files>
+    <File>DistrictExtensions.dep</File>
+    <File>ArtDefs/Districts.artdef</File>
+    <File>ArtDefs/Landmarks.artdef</File>
     <File>CampusExtensions/CamExtCore.sql</File>
     <File>CampusExtensions/CamExtIcon.sql</File>
     <File>UI/StrategicView_MapPlacement.lua</File>
