@@ -26,6 +26,9 @@
       <File>UI/StrategicView_MapPlacement.lua</File>
     </ImportFiles>
     <UpdateArt id="DistrictExtensionsUpdateArt">
+      <Properties>
+        <LoadOrder>0</LoadOrder>
+      </Properties>
       <File>DistrictExtensions.dep</File>
     </UpdateArt>
   </InGameActions>
